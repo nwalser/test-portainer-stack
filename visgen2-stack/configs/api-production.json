@@ -1,0 +1,142 @@
+{
+  "Serilog": {
+    "MinimumLevel": "Warning",
+    "WriteTo": [
+      {
+        "Name": "Console"
+      }
+    ]
+  },
+  "Sentry": {
+    "Dsn": "",
+    "MaxRequestBodySize": "Always",
+    "SendDefaultPii": true,
+    "MinimumBreadcrumbLevel": "Debug",
+    "MinimumEventLevel": "Warning",
+    "AttachStackTrace": true,
+    "Debug": true,
+    "DiagnosticsLevel": "Error"
+  },
+  "modules": [
+    // batch module
+    {
+      "type": "Esp.VisGen2.Batch.Infrastructure.BatchDomainModule, Esp.VisGen2.Batch.Infrastructure",
+      "properties": {
+        "MongoDbConnectionString": "mongodb://localhost:27017",
+        "BatchDatabaseName": "VisGen2",
+        "BatchCollectionName": "Batches"
+      }
+    },
+    {
+      "type": "Esp.VisGen2.Batch.RestApi.V1.BatchRestModule, Esp.VisGen2.Batch.RestApi.V1"
+    },
+    // gelpak module
+    {
+      "type": "Esp.VisGen2.Gelpak.Infrastructure.GelpakDomainModule, Esp.VisGen2.Gelpak.Infrastructure",
+      "properties": {
+        "MongoDbConnectionString": "mongodb://localhost:27017",
+        "GelpakDatabaseName": "VisGen2",
+        "GelpakCollectionName": "Gelpaks"
+      }
+    },
+    {
+      "type": "Esp.VisGen2.Gelpak.RestApi.V1.GelpakRestModule, Esp.VisGen2.Gelpak.RestApi.V1"
+    },
+    // health module
+    {
+      "type": "Esp.Health.RestApi.V1.HealthRestModule, Esp.Health.RestApi.V1"
+    },
+    // surface inspection module
+    {
+      "type": "Esp.VisGen2.SurfaceInspection.Infrastructure.SurfaceInspectionDomainModule, Esp.VisGen2.SurfaceInspection.Infrastructure",
+      "properties": {
+        "MongoDbConnectionString": "mongodb://localhost:27017",
+        "SurfaceInspectionDatabaseName": "VisGen2",
+        "SurfaceInspectionCollectionName": "SurfaceInspections",
+        "MinioEndpoint": "host.docker.internal:9000",
+        "MinioAccessKey": "minioadmin",
+        "MinioSecretKey": "minioadmin",
+        "MinioBucketName": "surface-inspection-files"
+      }
+    },
+    {
+      "type": "Esp.VisGen2.SurfaceInspection.RestApi.V1.SurfaceInspectionRestModule, Esp.VisGen2.SurfaceInspection.RestApi.V1"
+    },
+    // lens module
+    {
+      "type": "Esp.VisGen2.Lens.Infrastructure.LensDomainModule, Esp.VisGen2.Lens.Infrastructure",
+      "properties": {
+        "MongoDbConnectionString": "mongodb://localhost:27017",
+        "LensDatabaseName": "VisGen2",
+        "LensCollectionName": "Lenses"
+      }
+    },
+    {
+      "type": "Esp.VisGen2.Lens.RestApi.V1.LensRestModule, Esp.VisGen2.Lens.RestApi.V1"
+    },
+    // machine module
+    {
+      "type": "Esp.VisGen2.Machine.Infrastructure.MachineDomainModule, Esp.VisGen2.Machine.Infrastructure",
+      "properties": {
+        "MongoDbConnectionString": "mongodb://localhost:27017",
+        "MachineDatabaseName": "VisGen2",
+        "MachineCollectionName": "Machines",
+        "LogDatabaseName": "VisGen2",
+        "LogCollectionName": "MachineLog"
+      }
+    },
+    {
+      "type": "Esp.VisGen2.Machine.RestApi.V1.MachineRestModule, Esp.VisGen2.Machine.RestApi.V1"
+    },
+    // material module
+    {
+      "type": "Esp.VisGen2.Material.Infrastructure.MaterialDomainModule, Esp.VisGen2.Material.Infrastructure",
+      "properties": {
+        "MongoDbConnectionString": "mongodb://localhost:27017",
+        "MaterialDatabaseName": "VisGen2",
+        "MaterialCollectionName": "Materials",
+        "LogDatabaseName": "VisGen2",
+        "LogCollectionName": "MaterialLog"
+      }
+    },
+    {
+      "type": "Esp.VisGen2.Material.RestApi.V1.MaterialRestModule, Esp.VisGen2.Material.RestApi.V1"
+    },
+    // order module
+    {
+      "type": "Esp.VisGen2.Order.Infrastructure.OrderDomainModule, Esp.VisGen2.Order.Infrastructure",
+      "properties": {
+        "MongoDbConnectionString": "mongodb://localhost:27017",
+        "OrderDatabaseName": "VisGen2",
+        "OrderCollectionName": "Orders"
+      }
+    },
+    {
+      "type": "Esp.VisGen2.Order.RestApi.V1.OrderRestModule, Esp.VisGen2.Order.RestApi.V1"
+    },
+    // quality module
+    {
+      "type": "Esp.VisGen2.Quality.Infrastructure.QualityDomainModule, Esp.VisGen2.Quality.Infrastructure",
+      "properties": {
+        "MongoDbConnectionString": "mongodb://localhost:27017",
+        "QualityDatabaseName": "VisGen2",
+        "QualityCollectionName": "Qualities"
+      }
+    },
+    {
+      "type": "Esp.VisGen2.Quality.RestApi.V1.QualityRestModule, Esp.VisGen2.Quality.RestApi.V1"
+    },
+    // set module
+    {
+      "type": "Esp.VisGen2.Set.Infrastructure.SetDomainModule, Esp.VisGen2.Set.Infrastructure",
+      "properties": {
+        "MongoDbConnectionString": "mongodb://localhost:27017",
+        "SetDatabaseName": "VisGen2",
+        "SetCollectionName": "Sets"
+      }
+    },
+    {
+      "type": "Esp.VisGen2.Set.RestApi.V1.SetRestModule, Esp.VisGen2.Set.RestApi.V1"
+    }
+  ]
+}

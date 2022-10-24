@@ -1,0 +1,48 @@
+version: '3.7'
+
+services:
+  mongodb:
+    image: mongo:latest
+    volumes:
+      - mongodb_data:/data
+    deploy:
+      placement:
+        constraints: [node.hostname == srvvisman01]
+
+  minio:
+    image: quay.io/minio/minio
+    command: server /data --console-address ":9001"
+    volumes:
+      - minio_data:/data
+    deploy:
+      placement:
+        constraints: [node.hostname == srvvisman01]
+
+  explorer:
+    image: espengineering/visgen2-explorer:latest
+    ports:
+      - "443:6000"
+      - "80:6001"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+    configs:
+      - source: explorer-config
+        target: /app/appsettings.Production.json
+    deploy:
+      placement:
+        constraints: [node.hostname == srvvisman01]
+
+configs:
+  api-config:
+    file: ./configs/api-production.json
+  processing-config:
+    file: ./configs/processing-production.json
+  explorer-config:
+    file: ./configs/explorer-production.json
+
+networks:
+  default:
+
+volumes:
+  mongodb_data:
+  minio_data:

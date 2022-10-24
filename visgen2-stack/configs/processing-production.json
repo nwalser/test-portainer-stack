@@ -1,0 +1,36 @@
+{
+  "Serilog": {
+    "MinimumLevel": "Debug",
+    "WriteTo": [
+      {
+        "Name": "Console"
+      }
+    ]
+  },
+
+  "AllowedHosts": "*",
+  "ModelManagerServiceConfiguration": {
+    "TileWidth": 256,
+    "TileHeight": 256,
+    "OverlapX": 30,
+    "OverlapY": 30,
+    "PlanBackModelPath": "./Models/frozen_inference_graph_image1_gen18_thresh=0.55.pb",
+    "PlanBackModelConfidenceThresh": 0.8,
+    "PlanCoaxModelPath": "./Models/frozen_inference_graph_image0_gen7_thresh=0.55.pb",
+    "PlanCoaxModelConfidenceThresh": 0.8,
+    "AsphBackModelPath": "./Models/frozen_inference_graph_image5_gen9_thresh=0.65.pb",
+    "AsphBackModelConfidenceThresh": 0.8,
+    "AsphCoaxModelPath": "./Models/frozen_inference_graph_image2_gen5_thresh=0.6.pb",
+    "AsphCoaxModelConfidenceThresh": 0.8
+  },
+  "Sentry": {
+    "Dsn": "",
+    "MaxRequestBodySize": "Always",
+    "SendDefaultPii": true,
+    "MinimumBreadcrumbLevel": "Debug",
+    "MinimumEventLevel": "Warning",
+    "AttachStackTrace": true,
+    "Debug": true,
+    "DiagnosticsLevel": "Error"
+  }
+}

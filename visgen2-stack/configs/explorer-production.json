@@ -1,0 +1,132 @@
+{
+  "Serilog": {
+    "MinimumLevel": "Warning",
+    "WriteTo": [
+      {
+        "Name": "Console"
+      }
+    ]
+  },
+  "LabelPrintingServiceConfiguration": {
+    "Username": "",
+    "Password": "",
+    "RemoteAddress": ""
+  },
+  "ConnectionStrings": {
+    "MinIO": "minioadmin:minioadmin@host.docker.internal:9000/europe"
+  },
+  "FusionAuth": {
+    "Authority": "http://localhost:9011/",
+    "ClientId": "6eb13974-ebc7-4831-898b-deb55a5879ab",
+    "ClientSecret": "or8EDyP777p9HHITmjH8QxTGqYxO9tOyB0OU3Inhemc",
+    "CookieName": "esp-authentication-user"
+  },
+  "Sentry": {
+    "Dsn": "",
+    "MaxRequestBodySize": "Always",
+    "SendDefaultPii": true,
+    "MinimumBreadcrumbLevel": "Debug",
+    "MinimumEventLevel": "Warning",
+    "AttachStackTrace": true,
+    "Debug": true,
+    "DiagnosticsLevel": "Error"
+  },
+  "modules": [
+    // batch module
+    {
+      "type": "Esp.VisGen2.Batch.Infrastructure.BatchDomainModule, Esp.VisGen2.Batch.Infrastructure",
+      "properties": {
+        "MongoDbConnectionString": "mongodb://localhost:27017",
+        "BatchDatabaseName": "VisGen2",
+        "BatchCollectionName": "Batches"
+      }
+    },
+    // gelpak module
+    {
+      "type": "Esp.VisGen2.Gelpak.Infrastructure.GelpakDomainModule, Esp.VisGen2.Gelpak.Infrastructure",
+      "properties": {
+        "MongoDbConnectionString": "mongodb://localhost:27017",
+        "GelpakDatabaseName": "VisGen2",
+        "GelpakCollectionName": "Gelpaks"
+      }
+    },
+    // health module
+    {
+      "type": "Esp.Health.RestApi.V1.HealthRestModule, Esp.Health.RestApi.V1"
+    },
+    // surface inspection module
+    {
+      "type": "Esp.VisGen2.SurfaceInspection.Infrastructure.SurfaceInspectionDomainModule, Esp.VisGen2.SurfaceInspection.Infrastructure",
+      "properties": {
+        "MongoDbConnectionString": "mongodb://localhost:27017",
+        "SurfaceInspectionDatabaseName": "VisGen2",
+        "SurfaceInspectionCollectionName": "SurfaceInspections",
+        "MinioEndpoint": "host.docker.internal:9000",
+        "MinioAccessKey": "minioadmin",
+        "MinioSecretKey": "minioadmin",
+        "MinioBucketName": "surface-inspection-files"
+      }
+    },
+    {
+      "type": "Esp.VisGen2.SurfaceInspection.RestApi.V1.SurfaceInspectionRestModule, Esp.VisGen2.SurfaceInspection.RestApi.V1"
+    },
+    // lens module
+    {
+      "type": "Esp.VisGen2.Lens.Infrastructure.LensDomainModule, Esp.VisGen2.Lens.Infrastructure",
+      "properties": {
+        "MongoDbConnectionString": "mongodb://localhost:27017",
+        "LensDatabaseName": "VisGen2",
+        "LensCollectionName": "Lenses"
+      }
+    },
+    // machine module
+    {
+      "type": "Esp.VisGen2.Machine.Infrastructure.MachineDomainModule, Esp.VisGen2.Machine.Infrastructure",
+      "properties": {
+        "MongoDbConnectionString": "mongodb://localhost:27017",
+        "MachineDatabaseName": "VisGen2",
+        "MachineCollectionName": "Machines",
+        "LogDatabaseName": "VisGen2",
+        "LogCollectionName": "MachineLog"
+      }
+    },
+    // material module
+    {
+      "type": "Esp.VisGen2.Material.Infrastructure.MaterialDomainModule, Esp.VisGen2.Material.Infrastructure",
+      "properties": {
+        "MongoDbConnectionString": "mongodb://localhost:27017",
+        "MaterialDatabaseName": "VisGen2",
+        "MaterialCollectionName": "Materials",
+        "LogDatabaseName": "VisGen2",
+        "LogCollectionName": "MaterialLog"
+      }
+    },
+    // order module
+    {
+      "type": "Esp.VisGen2.Order.Infrastructure.OrderDomainModule, Esp.VisGen2.Order.Infrastructure",
+      "properties": {
+        "MongoDbConnectionString": "mongodb://localhost:27017",
+        "OrderDatabaseName": "VisGen2",
+        "OrderCollectionName": "Orders"
+      }
+    },
+    // quality module
+    {
+      "type": "Esp.VisGen2.Quality.Infrastructure.QualityDomainModule, Esp.VisGen2.Quality.Infrastructure",
+      "properties": {
+        "MongoDbConnectionString": "mongodb://localhost:27017",
+        "QualityDatabaseName": "VisGen2",
+        "QualityCollectionName": "Qualities"
+      }
+    },
+    // set module
+    {
+      "type": "Esp.VisGen2.Set.Infrastructure.SetDomainModule, Esp.VisGen2.Set.Infrastructure",
+      "properties": {
+        "MongoDbConnectionString": "mongodb://localhost:27017",
+        "SetDatabaseName": "VisGen2",
+        "SetCollectionName": "Sets"
+      }
+    }
+  ]
+}
